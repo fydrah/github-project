@@ -1,5 +1,5 @@
-Simple GitHub project creation script
-#####################################
+Simple GitHub and Jenkins project bootstrap script
+##################################################
 
 Requirements
 ============
@@ -10,8 +10,13 @@ Requirements
 
       pip install -r requirements.txt
 
+Configure
+=========
 
-* Configure GitHub token:
+GitHub
+------
+
+* Configure GitHub API token:
 
     * Create a personal access token on https://github.com/settings/tokens
     * Scopes needed: ``repo``
@@ -22,8 +27,38 @@ Requirements
 
       export GITHUB_API_TOKEN=mysupersecrettoken
 
+Jenkins
+-------
+
+* Configure Jenkins API token:
+
+    * Go to https://JENKINS_URL/user/YOUR_USER/configure
+    * Click on `Show API Token...` or generate one
+
+* Export vars:
+
+  .. code-block:: console
+
+      JENKINS_URL=JENKINS_URL
+      JENKINS_API_TOKEN=YOUR_TOKEN
+      JENKINS_USERNAME=YOUR_USER
+
+* If you have some issues with certificates validation, export this var:
+
+  .. code-block:: console
+
+      PYTHONHTTPSVERIFY=0
+
+  .. note::
+
+      Currently this var is exported by default. This is a future update
+      to remove this behavior.
+
 Usage
 =====
+
+GitHub
+------
 
 .. code-block:: console
 
@@ -40,3 +75,25 @@ Usage
       --private          Create private repository
 
 
+Jenkins
+-------
+
+This is a simple wrapper for Jenkins Job Builder project (https://docs.openstack.org/infra/jenkins-job-builder/).
+It uses jinja2 template to create a base project with some jobs.
+  
+.. code-block:: console
+
+    usage: create_base_job.py [-h] --name NAME --git GIT
+                              [--config-template CONFIG_TEMPLATE]
+                              [--job-template JOB_TEMPLATE]
+    
+    Create Jenkins Job
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      --name NAME           Name of the project
+      --git GIT             GitHub URL of the repository
+      --config-template CONFIG_TEMPLATE
+                            Configuration jinja2 template for JJB
+      --job-template JOB_TEMPLATE
+                            Job jinja2 template for JJB

@@ -1,0 +1,26 @@
+- project:
+    name: {{ project_name }}
+    disabled: false
+    git: {{ git_url }}
+    jobs:
+      - '{name}'
+      - '{name}/{kind}':
+          kind: develop
+      - '{name}/{kind}':
+          kind: integ
+- job-template:
+    name: '{name}'
+    project-type: folder
+- job-template:
+    name: '{name}/{kind}'
+    project-type: multibranch
+    scm:
+        - git:
+            url: '{git}'
+    periodic-folder-trigger: '1m'
+    raw:
+      xml: |
+        <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+          <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+          <scriptPath>jenkinsfiles/{kind}.groovy</scriptPath>
+        </factory>
