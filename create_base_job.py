@@ -47,8 +47,10 @@ def main():
   parser.add_argument('--git', required=True, help='GitHub URL of the repository')
   parser.add_argument('--config-template', required=False, help='Configuration jinja2 template for JJB', default='templates/config_template.ini.j2')
   parser.add_argument('--job-template', required=False, help='Job jinja2 template for JJB', default='templates/job_template.yaml.j2')
-  env['PYTHONHTTPSVERIFY'] = '0'
+  parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)
   args = parser.parse_args()
+  if args.insecure:
+    env['PYTHONHTTPSVERIFY'] = '0'
   if jenkins.Jenkins(auth['url'],auth['username'],auth['token']).job_exists(args.name):
     print('Job already exists. Abort.')
     sys.exit(1)
