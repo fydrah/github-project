@@ -12,7 +12,7 @@ def pipInstallRequirements(String requirementsFilePath) {
 /**
  * Execute python scripts
  */
-def exec(String script, String[] args) {
+def execScript(String script, String[] args) {
   sh (
     script: "python ${script} ${args.join(' ')}"
   )
