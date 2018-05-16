@@ -18,7 +18,8 @@ node ("python27") {
   stage("Create Jenkins Job"){
     python.execScript("create_base_job.py", [
       "--name", "${PROJECT_NAME}",
-      "--git", "${PROJECT_GIT}"
+      "--git", "${PROJECT_GIT}",
+      "--insecure"
     ])
   }
 }
