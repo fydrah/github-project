@@ -3,7 +3,7 @@ import org.automation.*
 
 def python = new Python()
 
-node ("python2.7") {
+node ("python27") {
   stage("Setup"){
     deleteDir()
     checkout scm
