@@ -9,13 +9,13 @@ node ("python27") {
     checkout scm
     python.pipInstallRequirements("./requirements.txt")
   }
-  stage("Create GitHub Project") {
+  stage("Create GitHub Project"){
     python.execScript("create_project.py", [
       "--name", "${PROJECT_NAME}",
       "--type", "user"
     ])
   }
-  stage("Create Jenkins Job") {
+  stage("Create Jenkins Job"){
     python.execScript("create_base_job.py", [
       "--name", "${PROJECT_NAME}",
       "--git", "${PROJECT_GIT}"

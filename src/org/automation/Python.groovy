@@ -3,7 +3,7 @@ package org.automation
 /**
  * Install requirements in current directory
  */
-def pipInstallRequirements(String requirementsFilePath) {
+def pipInstallRequirements(requirementsFilePath) {
   sh (
     script: "pip install -r ${requirementsFilePath}"
   )
@@ -12,7 +12,7 @@ def pipInstallRequirements(String requirementsFilePath) {
 /**
  * Execute python scripts
  */
-def execScript(String script, String[] args) {
+def execScript(script, args) {
   sh (
     script: "python ${script} ${args.join(' ')}"
   )
