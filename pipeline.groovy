@@ -1,3 +1,4 @@
+@Library('python')
 import org.automation.*
 
 def python = new Python()
