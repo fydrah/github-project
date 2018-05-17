@@ -12,8 +12,10 @@ import uuid
 def create_job(auth,args):
   context = {
     'jjb_server': auth['url'],
-    'project_name': args.name,
-    'git_url': args.git,
+    'jjb_user': auth['username'],
+    'jjb_token': auth['token'],
+    'project_name': args.project_name,
+    'project_git': args.project_git,
   }
   folder = '/tmp/jenkinsjob-%s/' % str(uuid.uuid4())
   os.makedirs(folder)
@@ -43,15 +45,15 @@ def main():
     print('ERROR: Please set JENKINS_API_TOKEN')
     sys.exit(1)
   parser = argparse.ArgumentParser(description='Create Jenkins Job')
-  parser.add_argument('--name', required=True, help='Name of the project')
-  parser.add_argument('--git', required=True, help='GitHub URL of the repository')
+  parser.add_argument('--project-name', required=True, help='Name of the project')
+  parser.add_argument('--project-git', required=True, help='GitHub URL of the repository')
   parser.add_argument('--config-template', required=False, help='Configuration jinja2 template for JJB', default='templates/config_template.ini.j2')
   parser.add_argument('--job-template', required=False, help='Job jinja2 template for JJB', default='templates/job_template.yaml.j2')
   parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)
   args = parser.parse_args()
   if args.insecure:
     env['PYTHONHTTPSVERIFY'] = '0'
-  if jenkins.Jenkins(auth['url'],auth['username'],auth['token']).job_exists(args.name):
+  if jenkins.Jenkins(auth['url'],auth['username'],auth['token']).job_exists(args.project_name):
     print('Job already exists. Abort.')
     sys.exit(1)
   create_job(auth, args)

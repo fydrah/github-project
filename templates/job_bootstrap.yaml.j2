@@ -1,0 +1,30 @@
+- project:
+    name: {{ project_name }}
+    disabled: false
+    git: {{ project_git }}
+    jobs:
+      - '{name}'
+- job-template:
+    name: '{name}'
+    pipeline-scm:
+        scm:
+          - git:
+              url: '{git}'
+        script-path: pipeline.groovy
+    periodic-folder-trigger: '1m'
+    project-type: pipeline
+    parameters:
+      - string:
+          name: JENKINS_URL
+          default: {{ jjb_server }}
+      - string:
+          name: PROJECT_NAME
+      - string:
+          name: PROJECT_GIT
+      - string:
+          name: JENKINS_USERNAME
+          default: {{ jjb_user }}
+      - password:
+          name: JENKINS_API_TOKEN
+          type: secrettext
+          default: {{ jjb_token }}
