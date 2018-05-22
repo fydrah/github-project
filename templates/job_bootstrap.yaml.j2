@@ -28,3 +28,7 @@
           name: JENKINS_API_TOKEN
           type: secrettext
           default: {{ jjb_token }}
+      - password:
+          name: GITHUB_API_TOKEN
+          type: secrettext
+          default: {{ github_api_token }}

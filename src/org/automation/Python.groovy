@@ -18,11 +18,3 @@ def execScript(script, args) {
   )
 }
 
-/**
- * Debug script
- */
-def debugScript(args) {
-  sh (
-    script: "${args.join(' ')}"
-  )
-}

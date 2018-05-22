@@ -16,6 +16,7 @@ def create_job(auth,args):
     'jjb_token': auth['token'],
     'project_name': args.project_name,
     'project_git': args.project_git,
+    'github_api_token': auth['github_api_token'],
   }
   folder = '/tmp/jenkinsjob-%s/' % str(uuid.uuid4())
   os.makedirs(folder)
@@ -35,6 +36,7 @@ def main():
   auth['url'] = env.get('JENKINS_URL')
   auth['username'] = env.get('JENKINS_USERNAME')
   auth['token'] = env.get('JENKINS_API_TOKEN')
+  auth['github_api_token'] = env.get('GITHUB_API_TOKEN')
   if auth['url'] is None or auth['url'] == '':
     print('ERROR: Please set JENKINS_URL')
     sys.exit(1)
@@ -43,6 +45,9 @@ def main():
     sys.exit(1)
   if auth['token'] is None or auth['token'] == '':
     print('ERROR: Please set JENKINS_API_TOKEN')
+    sys.exit(1)
+  if auth['github_api_token'] is None or auth['github_api_token'] == '':
+    print('ERROR: Please set GITHUB_API_TOKEN')
     sys.exit(1)
   parser = argparse.ArgumentParser(description='Create Jenkins Job')
   parser.add_argument('--project-name', required=True, help='Name of the project')
