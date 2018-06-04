@@ -83,17 +83,20 @@ It uses jinja2 template to create a base project with some jobs.
   
 .. code-block:: console
 
-    usage: create_base_job.py [-h] --name NAME --git GIT
-                              [--config-template CONFIG_TEMPLATE]
-                              [--job-template JOB_TEMPLATE]
+    usage: create_base_job.py [-h] --project-name PROJECT_NAME --project-git
+                              PROJECT_GIT [--config-template CONFIG_TEMPLATE]
+                              [--job-template JOB_TEMPLATE] [--insecure]
     
     Create Jenkins Job
     
     optional arguments:
       -h, --help            show this help message and exit
-      --name NAME           Name of the project
-      --git GIT             GitHub URL of the repository
+      --project-name PROJECT_NAME
+                            Name of the project
+      --project-git PROJECT_GIT
+                            GitHub URL of the repository
       --config-template CONFIG_TEMPLATE
                             Configuration jinja2 template for JJB
       --job-template JOB_TEMPLATE
                             Job jinja2 template for JJB
+      --insecure            Don't check certificates
