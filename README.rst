@@ -100,3 +100,33 @@ It uses jinja2 template to create a base project with some jobs.
       --job-template JOB_TEMPLATE
                             Job jinja2 template for JJB
       --insecure            Don't check certificates
+
+Démo déploiement factory
+========================
+
+.. code-block:: console
+
+   oc login $URL
+   oc new-project jenkins
+   oc new-app jenkins-persistent -p VOLUME_CAPACITY=50Gi
+
+Puis on se connecte au jenkins pour récupérer le user et le token admin, ainsi qu'à github, pour créer le fichier de configuration suivant  (./env):
+
+.. code-block:: console
+
+   #!/bin/bash
+   
+   export JENKINS_URL="REDACTED"
+   export JENKINS_API_TOKEN="REDACTED"
+   export JENKINS_USERNAME="REDACTED"
+   export GITHUB_API_TOKEN="REDACTED"
+
+Ensuite, on peut terminer le déploiement :
+
+.. code-block:: console
+
+   source ./env
+   curl -k --user "$JENKINS_USERNAME:$JENKINS_API_TOKEN" --data-urlencode "script=$(< ./groovy-scripts/shared-library.groovy)" "${JENKINS_URL}scriptText"
+   ./create_base_job.py --project-name bootstrap --project-git https://github.com/fydrah/project-setup --job-template templates/job_bootstrap.yaml.j2
+
+Enfin, on lance le job bootstrap depuis l'interface jenkins pour boostraper un projet d'API.
