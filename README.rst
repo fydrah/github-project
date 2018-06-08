@@ -101,6 +101,16 @@ It uses jinja2 template to create a base project with some jobs.
                             Job jinja2 template for JJB
       --insecure            Don't check certificates
 
+Utilisation de clone_template_repo.py
+-------------------------------------
+
+.. code-block:: console
+
+   usage: clone_template_repo.py [-h] --target-git TARGET_GIT
+                                 [--target-git-user TARGET_GIT_USER] --source-git
+                                 SOURCE_GIT [--source-git-user SOURCE_GIT_USER]
+                                 [--insecure]
+
 Démo déploiement factory
 ========================
 
