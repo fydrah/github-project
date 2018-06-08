@@ -25,7 +25,7 @@ GitHub
 
   .. code-block:: console
 
-      export GITHUB_API_TOKEN=mysupersecrettoken
+      export TARGET_GIT_TOKEN=mysupersecrettoken
 
 Jenkins
 -------
@@ -83,17 +83,17 @@ It uses jinja2 template to create a base project with some jobs.
   
 .. code-block:: console
 
-    usage: create_base_job.py [-h] --project-name PROJECT_NAME --project-git
-                              PROJECT_GIT [--config-template CONFIG_TEMPLATE]
+    usage: create_base_job.py [-h] --target-name PROJECT_NAME --project-git
+                              TARGET_GIT [--config-template CONFIG_TEMPLATE]
                               [--job-template JOB_TEMPLATE] [--insecure]
     
     Create Jenkins Job
     
     optional arguments:
       -h, --help            show this help message and exit
-      --project-name PROJECT_NAME
+      --target-name PROJECT_NAME
                             Name of the project
-      --project-git PROJECT_GIT
+      --project-git TARGET_GIT
                             GitHub URL of the repository
       --config-template CONFIG_TEMPLATE
                             Configuration jinja2 template for JJB
@@ -129,7 +129,7 @@ Puis on se connecte au jenkins pour récupérer le user et le token admin, ainsi
    export JENKINS_URL="REDACTED"
    export JENKINS_API_TOKEN="REDACTED"
    export JENKINS_USERNAME="REDACTED"
-   export GITHUB_API_TOKEN="REDACTED"
+   export TARGET_GIT_TOKEN="REDACTED"
 
 Ensuite, on peut terminer le déploiement :
 
@@ -137,6 +137,6 @@ Ensuite, on peut terminer le déploiement :
 
    source ./env
    curl -k --user "$JENKINS_USERNAME:$JENKINS_API_TOKEN" --data-urlencode "script=$(< ./groovy-scripts/shared-library.groovy)" "${JENKINS_URL}scriptText"
-   ./create_base_job.py --project-name bootstrap --project-git https://github.com/fydrah/project-setup --job-template templates/job_bootstrap.yaml.j2
+   ./create_base_job.py --target-name bootstrap --project-git https://github.com/fydrah/project-setup --job-template templates/job_bootstrap.yaml.j2
 
 Enfin, on lance le job bootstrap depuis l'interface jenkins pour boostraper un projet d'API.

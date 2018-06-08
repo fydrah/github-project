@@ -22,14 +22,14 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
       }
       stage("Create GitHub Project"){
         python.execScript("create_project.py", [
-          "--name", "${PROJECT_NAME}",
+          "--name", "${TARGET_NAME}",
           "--type", "user"
         ])
       }
       stage("Create Jenkins Job"){
         python.execScript("create_base_job.py", [
-          "--project-name", "${PROJECT_NAME}",
-          "--project-git", "${PROJECT_GIT}",
+          "--target-name", "${TARGET_NAME}",
+          "--target-git", "${TARGET_GIT}",
           "--insecure"
         ])
       }
@@ -38,7 +38,7 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
           "--source-git", "${SOURCE_GIT}",
           "--source-git-user", "${SOURCE_GIT_USER}",
           "--target-git-user", "${TARGET_GIT_USER}",
-          "--target-git", "${PROJECT_GIT}",
+          "--target-git", "${TARGET_GIT}",
           "--insecure"
         ])
       }

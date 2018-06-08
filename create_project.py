@@ -28,11 +28,11 @@ def create_project(headers,args):
   
 
 def main():
-  token_auth = env.get('GITHUB_API_TOKEN')
+  token_auth = env.get('TARGET_GIT_TOKEN')
   if token_auth is None or token_auth == '':
-    print('ERROR: Please set GITHUB_API_TOKEN')
+    print('ERROR: Please set TARGET_GIT_TOKEN')
     sys.exit(1)
-  auth_header = {'Authorization': 'token %s' % env.get('GITHUB_API_TOKEN')}
+  auth_header = {'Authorization': 'token %s' % env.get('TARGET_GIT_TOKEN')}
   parser = argparse.ArgumentParser(description='Create Github projects')
   parser.add_argument('--name', required=True, help='Name of the repository')
   parser.add_argument('--type', choices=['user','org'], required=True, help='Create repository for user or organisation')

@@ -1,7 +1,7 @@
 - project:
-    name: {{ project_name }}
+    name: {{ target_name }}
     disabled: false
-    git: {{ project_git }}
+    git: {{ target_git }}
     jobs:
       - '{name}'
 - job-template:
@@ -18,9 +18,9 @@
           name: JENKINS_URL
           default: {{ jjb_server }}
       - string:
-          name: PROJECT_NAME
+          name: TARGET_NAME
       - string:
-          name: PROJECT_GIT
+          name: TARGET_GIT
       - string:
           name: SOURCE_GIT_USER
       - string:
@@ -37,6 +37,6 @@
           type: secrettext
           default: {{ jjb_token }}
       - password:
-          name: GITHUB_API_TOKEN
+          name: TARGET_GIT_TOKEN
           type: secrettext
           default: {{ github_api_token }}
