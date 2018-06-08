@@ -33,5 +33,14 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
           "--insecure"
         ])
       }
+      stage("Clone the soure api repo"){
+        python.execScript("clone_template_repo.py", [
+          "--source-git", "${SOURCE_GIT}",
+          "--source-git-user", "${SOURCE_GIT_USER}",
+          "--target-git-user", "${TARGET_GIT_USER}",
+          "--target-git", "${PROJECT_GIT}",
+          "--insecure"
+        ])
+      }
     }
 }

@@ -33,8 +33,10 @@ def create_template(repo, tmp_target, args):
 def push_git_cible(repo, tmp_target, args):
   os.chdir(tmp_target)
   subprocess.call('git init', shell=True)
+  subprocess.call('git config user.email "jenkins@ci.local"', shell=True)
+  subprocess.call('git config user.name "jenkins"', shell=True)
   subprocess.call('git remote add origin %s' % (repo), shell=True)
-  subprocess.call('git add *', shell=True)
+  subprocess.call('git add -f *', shell=True)
   subprocess.call('git commit -m "first commit"', shell=True)
   subprocess.call('git push -u origin master', shell=True)
 
