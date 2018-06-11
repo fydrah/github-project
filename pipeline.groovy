@@ -37,6 +37,7 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
         python.execScript("clone_template_repo.py", [
           "--source-git", "${SOURCE_GIT}",
           "--source-git-user", "${SOURCE_GIT_USER}",
+          "--source-git-branch", "${SOURCE_GIT_BRANCH}",
           "--target-git-user", "${TARGET_GIT_USER}",
           "--target-git", "${TARGET_GIT}",
           "--insecure"

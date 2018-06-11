@@ -28,6 +28,8 @@ def create_git_url(target, args):
 
 def create_template(repo, tmp_target, args):
   subprocess.call('git clone %s %s' % (repo, tmp_target), shell=True)
+  os.chdir(tmp_target)
+  subprocess.call('git checkout %s' % (args.source_git_branch), shell=True)
   shutil.rmtree(os.path.join(tmp_target, '.git'))
 
 def push_git_cible(repo, tmp_target, args):
@@ -45,6 +47,7 @@ def main():
   parser.add_argument('--target-git', required=True)
   parser.add_argument('--target-git-user', required=False, default=False)
   parser.add_argument('--source-git', required=True)
+  parser.add_argument('--source-git-branch', required=True)
   parser.add_argument('--source-git-user', required=False, default=False)
   parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)
   args = parser.parse_args()
