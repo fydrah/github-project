@@ -6,7 +6,7 @@ def python = new Python()
 podTemplate(label: 'python27', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'fhardy/jenkins-slave-python27-centos7',
+    image: 'jarou/jenkins-slave-python27-centos7',
     alwaysPullImage: true,
     ttyEnabled: true,
     workingDir: '/tmp',
@@ -40,6 +40,7 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
           "--source-git-branch", "${SOURCE_GIT_BRANCH}",
           "--target-git-user", "${TARGET_GIT_USER}",
           "--target-git", "${TARGET_GIT}",
+          "--project-name", "${TARGET_NAME}",
           "--insecure"
         ])
       }

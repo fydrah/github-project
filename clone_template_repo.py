@@ -38,6 +38,10 @@ def push_git_cible(repo, tmp_target, args):
   subprocess.call('git config user.email "jenkins@ci.local"', shell=True)
   subprocess.call('git config user.name "jenkins"', shell=True)
   subprocess.call('git remote add origin %s' % (repo), shell=True)
+  subprocess.call('pip install ./bootstrap/Flask-Cache-0.13.adeo.1.tar.gz;', shell=True)
+  subprocess.call('pip install -e . -r bootstrap-requirements.txt;', shell=True)
+  subprocess.call('./bootstrap/flaskit_new_api.py --name %s --nomkvenv --nogit --dir ./%s;' % (args.project_name, args.project_name,), shell=True)
+  subprocess.call('./bootstrap/flaskit_add_resource.py --all --dir ./%s --resource test;' % (args.project_name), shell=True)
   subprocess.call('git add -f *', shell=True)
   subprocess.call('git commit -m "first commit"', shell=True)
   subprocess.call('git push -u origin master', shell=True)
@@ -49,6 +53,7 @@ def main():
   parser.add_argument('--source-git', required=True)
   parser.add_argument('--source-git-branch', required=True)
   parser.add_argument('--source-git-user', required=False, default=False)
+  parser.add_argument('--project-name', required=True)
   parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)
   args = parser.parse_args()
   if args.insecure:
