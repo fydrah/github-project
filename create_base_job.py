@@ -16,8 +16,6 @@ def create_job(auth,args):
     'jjb_token': auth['token'],
     'target_name': args.target_name,
     'target_git': args.target_git,
-    'target_git_user': args.target_git_user,
-    'target_git_token': args.target_git_token,
     'github_api_token': auth['github_api_token'],
   }
   folder = '/tmp/jenkinsjob-%s/' % str(uuid.uuid4())
@@ -54,8 +52,6 @@ def main():
   parser = argparse.ArgumentParser(description='Create Jenkins Job')
   parser.add_argument('--target-name', required=True, help='Name of the project')
   parser.add_argument('--target-git', required=True, help='GitHub URL of the repository')
-  parser.add_argument('--target-git-user', required=True, help='GitHub URL of the repository')
-  parser.add_argument('--target-git-token', required=True, help='GitHub URL of the repository')
   parser.add_argument('--config-template', required=False, help='Configuration jinja2 template for JJB', default='templates/config_template.ini.j2')
   parser.add_argument('--job-template', required=False, help='Job jinja2 template for JJB', default='templates/job_template.yaml.j2')
   parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)

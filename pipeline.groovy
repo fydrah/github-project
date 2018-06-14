@@ -31,8 +31,6 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
         python.execScript("create_base_job.py", [
           "--target-name", "${name}",
           "--target-git", "${TARGET_GIT}",
-          "--target-git-user", "${TARGET_GIT_USER}",
-          "--target-git-token", "${TARGET_GIT_TOKEN}",
           "--insecure"
         ])
       }
