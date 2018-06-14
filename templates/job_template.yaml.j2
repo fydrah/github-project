@@ -12,6 +12,14 @@
 - job-template:
     name: '{name}/{kind}'
     project-type: multibranch
+    parameters:
+      - string:
+          name: TARGET_GIT_USER
+          value: {{ target_git_user }}
+      - password:
+          name: TARGET_GIT_TOKEN
+          type: secrettext
+          default: {{ target_git_token }}
     scm:
         - git:
             url: '{git}'
