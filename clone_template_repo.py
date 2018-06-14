@@ -33,6 +33,7 @@ def create_template(repo, tmp_target, args):
   shutil.rmtree(os.path.join(tmp_target, '.git'))
 
 def push_git_cible(repo, tmp_target, args):
+  project_name = repo.split('/')[-1].split('.')[0]
   os.chdir(tmp_target)
   subprocess.call('git init', shell=True)
   subprocess.call('git config user.email "jenkins@ci.local"', shell=True)
@@ -40,8 +41,8 @@ def push_git_cible(repo, tmp_target, args):
   subprocess.call('git remote add origin %s' % (repo), shell=True)
   subprocess.call('pip install ./bootstrap/Flask-Cache-0.13.adeo.1.tar.gz;', shell=True)
   subprocess.call('pip install -e . -r bootstrap-requirements.txt;', shell=True)
-  subprocess.call('./bootstrap/flaskit_new_api.py --name %s --dir ./%s;' % (args.project_name, args.project_name,), shell=True)
-  subprocess.call('./bootstrap/flaskit_add_resource.py --all --dir ./%s --resource test;' % (args.project_name), shell=True)
+  subprocess.call('./bootstrap/flaskit_new_api.py --name %s --dir ./%s;' % (project_name, project_name,), shell=True)
+  subprocess.call('./bootstrap/flaskit_add_resource.py --all --dir ./%s --resource test;' % (project_name), shell=True)
   subprocess.call('git add -f *', shell=True)
   subprocess.call('git commit -m "first commit"', shell=True)
   subprocess.call('git push -u origin master', shell=True)
@@ -53,7 +54,6 @@ def main():
   parser.add_argument('--source-git', required=True)
   parser.add_argument('--source-git-branch', required=True)
   parser.add_argument('--source-git-user', required=False, default=False)
-  parser.add_argument('--project-name', required=True)
   parser.add_argument('--insecure', action='store_true', required=False, help='Don\'t check certificates', default=False)
   args = parser.parse_args()
   if args.insecure:

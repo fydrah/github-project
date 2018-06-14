@@ -40,7 +40,6 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
           "--source-git-branch", "${SOURCE_GIT_BRANCH}",
           "--target-git-user", "${TARGET_GIT_USER}",
           "--target-git", "${TARGET_GIT}",
-          "--project-name", "${TARGET_NAME}",
           "--insecure"
         ])
       }
