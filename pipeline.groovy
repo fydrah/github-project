@@ -2,6 +2,7 @@
 import org.automation.*
 
 def python = new Python()
+def tool = new Tool()
 
 podTemplate(label: 'python27', cloud: 'openshift', containers: [
   containerTemplate(
@@ -43,6 +44,9 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
           "--target-git", "${TARGET_GIT}",
           "--insecure"
         ])
+      }
+      stage("Add git credentials"){
+        tool.addGitCreds("${TARGET_GIT_USER}", "${TARGET_GIT_TOKEN}", "${name}")
       }
     }
 }
