@@ -18,8 +18,6 @@
           name: JENKINS_URL
           default: {{ jjb_server }}
       - string:
-          name: TARGET_NAME
-      - string:
           name: TARGET_GIT
       - string:
           name: SOURCE_GIT_USER
@@ -28,7 +26,7 @@
       - string:
           name: SOURCE_GIT_BRANCH
           default: master
-      - string:
+      - password:
           type: secrettext
           name: SOURCE_GIT_TOKEN
       - string:

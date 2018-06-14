@@ -14,6 +14,7 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
   )
 ]) {
 
+    def name = env.TARGET_GIT.split('/').last().split('\\.')[0]
     node ("python27") {
       stage("Setup"){
         deleteDir()
@@ -22,13 +23,13 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
       }
       stage("Create GitHub Project"){
         python.execScript("create_project.py", [
-          "--name", "${TARGET_NAME}",
+          "--name", "${name}",
           "--type", "user"
         ])
       }
       stage("Create Jenkins Job"){
         python.execScript("create_base_job.py", [
-          "--target-name", "${TARGET_NAME}",
+          "--target-name", "${name}",
           "--target-git", "${TARGET_GIT}",
           "--insecure"
         ])
