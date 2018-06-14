@@ -15,11 +15,6 @@
     project-type: pipeline
     parameters:
       - string:
-          name: JENKINS_URL
-          default: {{ jjb_server }}
-      - string:
-          name: TARGET_GIT
-      - string:
           name: SOURCE_GIT_USER
       - string:
           name: SOURCE_GIT
@@ -31,6 +26,12 @@
           name: SOURCE_GIT_TOKEN
       - string:
           name: TARGET_GIT_USER
+      - password:
+          name: TARGET_GIT_TOKEN
+          type: secrettext
+          default: {{ github_api_token }}
+      - string:
+          name: TARGET_GIT
       - string:
           name: JENKINS_USERNAME
           default: {{ jjb_user }}
@@ -38,7 +39,6 @@
           name: JENKINS_API_TOKEN
           type: secrettext
           default: {{ jjb_token }}
-      - password:
-          name: TARGET_GIT_TOKEN
-          type: secrettext
-          default: {{ github_api_token }}
+      - string:
+          name: JENKINS_URL
+          default: {{ jjb_server }}
