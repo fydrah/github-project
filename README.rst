@@ -118,7 +118,7 @@ Démo déploiement factory
 
    oc login $URL
    oc new-project jenkins
-   oc new-app jenkins-persistent -p VOLUME_CAPACITY=50Gi
+   oc process -f templates/jenkins.yaml |oc create -f -
 
 Puis on se connecte au jenkins pour récupérer le user et le token admin, ainsi qu'à github, pour créer le fichier de configuration suivant  (./env):
 
@@ -137,6 +137,13 @@ Ensuite, on peut terminer le déploiement :
 
    source ./env
    curl -k --user "$JENKINS_USERNAME:$JENKINS_API_TOKEN" --data-urlencode "script=$(< ./groovy-scripts/shared-library.groovy)" "${JENKINS_URL}scriptText"
-   ./create_base_job.py --target-name bootstrap --project-git https://github.com/fydrah/project-setup --job-template templates/job_bootstrap.yaml.j2
+   ./create_base_job.py --target-name bootstrap --target-git https://github.com/fydrah/project-setup --job-template templates/job_bootstrap.yaml.j2
 
 Enfin, on lance le job bootstrap depuis l'interface jenkins pour boostraper un projet d'API.
+
+Droit à ajouter au compte jenkin
+--------------------------------
+
+.. code-block:: console
+
+   oc adm policy add-cluster-role-to-user self-provisioner system:serviceaccount:$PROJECT_NAME:default
