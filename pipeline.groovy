@@ -11,13 +11,7 @@ podTemplate(label: 'python27', cloud: 'openshift', containers: [
     alwaysPullImage: true,
     ttyEnabled: true,
     workingDir: '/tmp',
-    args: '${computer.jnlpmac} ${computer.name}',
-    resources: [
-      limits: [
-        memory: '4Gi',
-        cpu: '2000m'
-      ]
-    ]
+    args: '${computer.jnlpmac} ${computer.name}'
   )
 ]) {
 
